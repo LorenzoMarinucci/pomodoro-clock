@@ -11,7 +11,7 @@ i:hover {
     opacity: 0.9;
 }
 
-img[pushed] {
+div[pushed] {
     transform: scale(0.9);
 }
 

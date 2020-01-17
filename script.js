@@ -91,7 +91,16 @@ function updateTimer() { //para que siempre marque como xx:xx
 }
 
 function changeStatus() {
-
+    time.seconds=0;
+    if (time.status=="work") {
+        time.status="rest";
+        time.minutes=time.rest;
+    }
+    else {
+        time.status="work";
+        time.minutes=time.work;
+    }
+    status.textContent=`${time.status.toUpperCase()}`;
 }
 
 arrows.forEach(arrow => arrow.addEventListener('click', e => {time[e.target.id](document.getElementById(e.target.id))}));
@@ -125,4 +134,6 @@ function configureTime(e) {
             updateTimer();
         }
     }
+    console.log(e.target);
+    pushEfect(e.target);
 }
