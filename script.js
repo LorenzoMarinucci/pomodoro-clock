@@ -3,17 +3,50 @@ let time = {
             seconds: 0,
             work: 25,
             rest: 5,
-            workUp: function(element) {if (work<50) work++},
-            workDown: function(element) {if (work>1) work--},
-            restUp: function(element) {if (rest<50) rest++},
-            restDown: function(element) {if (rest>1) {
-                                    this.rest--
-                                    element.toggleAttribute(pushed);
-                                    element.toggleAttribute(pushed);
-                                    restTime.textContent = rest;
-            }
-        },
-                                    //setTimeout(() => {element.toggleAttribute(pushed);}, )},
+            workUp: function(element) {if (this.work<50) {
+                this.work++;
+                workTime.textContent = this.work;
+                pushEfect(element);
+                if (!time.active && time.status=="work") {
+                    time.seconds = 0;
+                    time.minutes = time.work;
+                    updateTimer();
+                }
+             }
+            },
+            workDown: function(element) {if (this.work>1) {
+                this.work--;
+                workTime.textContent = this.work;
+                pushEfect(element);
+                if (!time.active && time.status=="work") {
+                    time.seconds = 0;
+                    time.minutes = time.work;
+                    updateTimer();
+                }
+             }
+            },
+            restUp: function(element) {if (this.rest<50) {
+                this.rest++;
+                restTime.textContent = this.rest;
+                pushEfect(element);
+                if (!time.active && time.status=="rest") {
+                    time.seconds=0;
+                    time.minutes=time.rest;
+                    updateTimer();
+                }
+             }
+            },
+            restDown: function(element) {if (this.rest>1) {
+                                            this.rest--;
+                                            restTime.textContent = this.rest;
+                                            pushEfect(element);
+                                            if (!time.active && time.status=="rest") {
+                                                time.seconds=0;
+                                                time.minutes=time.rest;
+                                                updateTimer();
+                                            }
+                                         }
+                                    },                        
             active: false,  //si el timer se esta ejecutando.
             status: "work"
 }
@@ -25,6 +58,11 @@ const arrows = document.querySelectorAll("i");  //aumentar o disminuir los minut
       restTime = document.getElementById("restTime");
 
 setInterval(count, 1000); 
+
+function pushEfect(element) {
+    element.toggleAttribute("pushed");
+    setTimeout(() => {element.toggleAttribute("pushed")}, 300);
+}
 
 function count() {  
     if (time.active) {
@@ -42,7 +80,9 @@ function count() {
     }
 }
 
-function updateTimer() {
+
+
+function updateTimer() { //para que siempre marque como xx:xx
     currentTimer = "";
     currentTimer += (time.minutes>=10) ? time.minutes : ("0"+time.minutes);
     currentTimer += ":";

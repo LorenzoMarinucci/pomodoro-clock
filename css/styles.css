@@ -11,8 +11,16 @@ i:hover {
     opacity: 0.9;
 }
 
-i[pushed], img[pushed] {
+img[pushed] {
     transform: scale(0.9);
+}
+
+i.down[pushed] {
+    transform: rotate(45deg) scale(0.9);
+}
+
+i.up[pushed] {
+    transform: rotate(-135deg) scale(0.9);
 }
 
 .optionName {
