@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Pomodoro CLock</title>
+        <title>Pomodoro Clock</title>
         <link rel="icon" href="https://img.icons8.com/plasticine/100/000000/timer.png">
         <link rel="stylesheet" href="css/reset.css" type="text/css" media="all"/>
         <link rel="stylesheet" href="css/styles.css" type="text/css" media="all"/>
@@ -11,14 +11,14 @@
         <div id="container">
             <div id="configuration">
                 <div id="work">
-                    <i id="workUp" class="down"></i>
+                    <i id="workDown" class="down"></i>
                     <div id="workTime">25</div>
-                    <i id="workDown" class="up"></i>
+                    <i id="workUp" class="up"></i>
                 </div>
                 <div id="rest">
-                    <i id="restUp" class="down"></i>
+                    <i id="restDown" class="down"></i>
                     <div id="restTime">5</div>
-                    <i id="restDown" class="up"></i>
+                    <i id="restUp" class="up"></i>
                 </div>
                 <br>
                 <div class="optionName" id="session">SESSION</div>
@@ -27,9 +27,9 @@
             <hr/>
             <div id="clock">
                 <div id="options">
-                    <div id="play" paused></div>
-                    <div id="reset"></div>
-                    <div id="stop"></div>
+                    <div id="play" class="button" paused></div>
+                    <div id="reset" class="button"></div>
+                    <div id="stop" class="button"></div>
                 </div>
                 <div id="timer">25:00</div>
                 <div id="status">WORK</div>
