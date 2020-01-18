@@ -52,30 +52,29 @@ let time = {
 }
 const arrows = document.querySelectorAll("i");  //aumentar o disminuir los minutos.
       buttons = document.querySelectorAll(".button"); //configuracion del timer.
-      status = document.getElementById("status"); 
       timer = document.getElementById("timer");
       workTime = document.getElementById("workTime");
       restTime = document.getElementById("restTime");
+      currentStatus = document.getElementById("status");
 
 setInterval(count, 1000); 
 
-function pushEfect(element) {
+function pushEfect(element) { //efecto de boton presionado
     element.toggleAttribute("pushed");
     setTimeout(() => {element.toggleAttribute("pushed")}, 300);
 }
 
-function count() {  
+function count() {  //movimiento del reloj
     if (time.active) {
         if (time.seconds==0) {
             time.seconds=59;
             if (time.minutes==0) 
                 changeStatus();
-            
             else 
-                time.minutes=+time.minutes-1;
+                time.minutes-=1;
         }
         else 
-            time.seconds=+time.seconds-1;
+            time.seconds-=1;
         updateTimer();
     }
 }
@@ -90,8 +89,7 @@ function updateTimer() { //para que siempre marque como xx:xx
     timer.textContent = currentTimer;
 }
 
-function changeStatus() {
-    time.seconds=0;
+function changeStatus() { //cambiar el status cuando el reloj llega a 0
     if (time.status=="work") {
         time.status="rest";
         time.minutes=time.rest;
@@ -100,13 +98,16 @@ function changeStatus() {
         time.status="work";
         time.minutes=time.work;
     }
-    status.textContent=`${time.status.toUpperCase()}`;
+    time.seconds = 0;
+    let audio=document.querySelector("audio");
+    audio.play();
+    currentStatus.textContent=`${time.status.toUpperCase()}`;
 }
 
 arrows.forEach(arrow => arrow.addEventListener('click', e => {time[e.target.id](document.getElementById(e.target.id))}));
 buttons.forEach(button => button.addEventListener('click', e => configureTime(e)));
 
-function configureTime(e) {
+function configureTime(e) {  //pausa/reanudeacion, reinicio y stop
     console.log(e.target.id);
     switch (e.target.id) {
         case ("play"): {
@@ -116,7 +117,7 @@ function configureTime(e) {
         }
         case ("reset"): {
             time.seconds = 0;
-            time.minutes = (time.status=="work") ? time.work : time.minutes;
+            time.minutes = (time.status=="work") ? time.work : time.rest;
             updateTimer();
             break;
         }
@@ -134,6 +135,5 @@ function configureTime(e) {
             updateTimer();
         }
     }
-    console.log(e.target);
     pushEfect(e.target);
 }
